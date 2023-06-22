@@ -24,16 +24,38 @@ jobs:
             workload_identity_provider: 'projects/${{env.GCP_PROJECT_NUMBER}}/locations/global/workloadIdentityPools/${{env.GCP_IDENTITY_POOL}}/providers/github'
             service_account: '${{env.GCP_SERVICE_ACCOUNT}}@${{env.GCP_PROJECT_ID}}.iam.gserviceaccount.com'
 
-        - id: 'deploy'
-          uses: 'google-github-actions/deploy-cloud-functions@v1'
+        # - id: 'deploy'
+        #   uses: 'google-github-actions/deploy-cloud-functions@v1'
+        #   with:
+        #     name: 'email-processor'
+        #     runtime: 'python311'
+        #     memory_mb: '256'
+        #     region: 'asia-south1'
+        #     env_vars: 'WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}'
+        #     source_dir: './app'
+        #     entry_point: 'handler'
+        #     timeout: 300
+        #     https_trigger_security_level: 'secure_always'
+        #     min_instances: 0
+        #     max_instances: 1
+
+        - name: 'Set up Cloud SDK'
+          uses: 'google-github-actions/setup-gcloud@v1'
           with:
-            name: 'email-processor'
-            runtime: 'python311'
-            memory_mb: '256'
-            region: 'asia-south1'
-            env_vars: 'WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}'
-            source_dir: './app'
-            entry_point: 'handler'
+            version: '>= 363.0.0'
+
+        - id: 'deploy'
+          run: > 
+            gcloud functions deploy email-processor
+            --region=asia-south1
+            --source=./app
+            --runtime=python311
+            --memory=256
+            --max-instances=1
+            --set-env-vars=[WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}]
+            --timeout=300
+            --allow-unauthenticated
+            --gen2
     
         - id: 'test'
           run: 'curl "${{ steps.deploy.outputs.url }}"'
