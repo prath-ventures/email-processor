@@ -33,6 +33,7 @@ jobs:
             region: 'asia-south1'
             env_vars: 'WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}'
             source_dir: './app'
+            entry_point: 'handler'
     
         - id: 'test'
           run: 'curl "${{ steps.deploy.outputs.url }}"'

@@ -8,7 +8,7 @@ password = os.environ.get('WATCH_PASSWORD', 'xjvqkodofonrhzxe')
 imap_url = 'imap.gmail.com'
 
 @functions_framework.http
-def hello_http(request):
+def handler(request):
     request_json = request.get_json(silent=True)
     request_args = request.args
 
