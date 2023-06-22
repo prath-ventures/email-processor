@@ -50,6 +50,7 @@ jobs:
             --region=asia-south1
             --source=./app
             --runtime=python311
+            --entry-point=handler
             --memory=256
             --max-instances=1
             --set-env-vars=[WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}]
