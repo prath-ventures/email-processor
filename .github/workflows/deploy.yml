@@ -30,7 +30,7 @@ jobs:
             name: 'email-processor'
             runtime: 'python311'
             memory_db: '256'
-            region: 'Mumbai'
+            # region: 'asia-south1'
             env_vars: 'WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}'
             source_dir: './app'
     
