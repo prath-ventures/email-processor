@@ -1,0 +1,38 @@
+on:
+    push:
+      branches:
+        - main
+name: Alpha - Build & Deploy
+env:
+    GCP_PROJECT_NUMBER: 198262807868
+    GCP_IDENTITY_POOL: prath-pool
+    GCP_PROJECT_ID: earnest-triumph-390509
+    GCP_SERVICE_ACCOUNT: github-oidc
+jobs:
+    build_and_deploy:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        
+        steps:
+        - uses: 'actions/checkout@v3'
+    
+        - id: 'auth'
+          uses: 'google-github-actions/auth@v1'
+          with:
+            workload_identity_provider: 'projects/${{env.GCP_PROJECT_NUMBER}}/locations/global/workloadIdentityPools/${{env.GCP_IDENTITY_POOL}}/providers/github'
+            service_account: '${{env.GCP_SERVICE_ACCOUNT}}@${{env.GCP_PROJECT_ID}}.iam.gserviceaccount.com'
+
+        - id: 'deploy'
+          uses: 'google-github-actions/deploy-cloud-functions@v1'
+          with:
+            name: 'email-processor'
+            runtime: 'python311'
+            memory_db: '256'
+            region: 'asia-south1'
+            env_vars: 'WATCH_EMAIL=${{ secrets.WATCH_EMAIL }},WATCH_PASSWORD=${{ secrets.WATCH_PASSWORD }}'
+            source_dir: './app'
+    
+        - id: 'test'
+          run: 'curl "${{ steps.deploy.outputs.url }}"'
