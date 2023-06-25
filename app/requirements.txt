@@ -1,1 +1,5 @@
 functions-framework==3.*
+# pydrive
+apiclient
+google-api-python-client
+google

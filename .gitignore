@@ -1,1 +1,6 @@
 v-env/
+scripts/
+Lib/
+Include/
+app/service_account.json
+pyvenv.cfg
