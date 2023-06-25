@@ -20,7 +20,7 @@ class GmailClient:
         leaf_folder_existed = True
         is_attachment = False
         numOfMessages = int(messages[0])
-        for i in range(numOfMessages, numOfMessages - 100, -1):
+        for i in range(numOfMessages, numOfMessages - 50, -1):
             res, msg = imap.fetch(str(i), "(RFC822)")
             is_attachment = False
             for response in msg:

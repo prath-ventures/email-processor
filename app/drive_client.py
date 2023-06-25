@@ -8,7 +8,7 @@ from google.oauth2 import service_account
 class DriveClient:
     def __init__(self):
         sa = open("./service_account.json")
-        creds_json = json.load(sa)
+        creds_json = json.load(sa, strict=False)
         scopes_list = [
             "https://www.googleapis.com/auth/drive",
             "https://www.googleapis.com/auth/drive.file",
