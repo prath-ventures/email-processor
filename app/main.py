@@ -14,6 +14,7 @@ def handler(request):
     # else:
     #     name = 'World'
     GmailClient().process_emails()
+    return "done"
 
 
 if __name__ == "__main__":
