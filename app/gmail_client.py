@@ -64,7 +64,7 @@ class GmailClient:
         if isinstance(From, bytes):
             From = From.decode(encoding)
         # date = datetime.strptime(msg["Date"], "%a, %d %b %Y %H:%M:%S GMT")
-        date = email.utils.parsedate_to_datetime(msg["Date"]).strftime("%d-%b-%Y")
+        date = email.utils.parsedate_to_datetime(msg["Date"]).strftime("%Y-%m-%d")
         print("Subject:", subject)
         print("From:", From)
         print("Date:", date)
