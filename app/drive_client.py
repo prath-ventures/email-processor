@@ -20,7 +20,7 @@ class DriveClient:
             "drive", "v3", credentials=credentials, cache_discovery=False
         )
         self.google_drive_folder_id = os.environ.get(
-            "GOOGLE_DRIVE_FOLDER_ID", "1FIq6H8DY0CiwE0seUtBuW6_GDJH6drAr"
+            "GOOGLE_DRIVE_FOLDER_ID", "<shared_folder_id>"
         )
 
     def upload_file(

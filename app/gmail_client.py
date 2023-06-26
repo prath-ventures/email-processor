@@ -9,8 +9,8 @@ from drive_client import DriveClient
 
 class GmailClient:
     def __init__(self) -> None:
-        self.user = os.environ.get("WATCH_EMAIL", "contact.fuzzylabs@gmail.com")
-        self.password = os.environ.get("WATCH_PASSWORD", "xjvqkodofonrhzxe")
+        self.user = os.environ.get("WATCH_EMAIL", "<email_id>")
+        self.password = os.environ.get("WATCH_PASSWORD", "<password>")
         self.imap_url = "imap.gmail.com"
 
     def process_emails(self):
