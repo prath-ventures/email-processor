@@ -21,7 +21,7 @@ jobs:
         - name: Create service_account.json
           run: |
             touch app/service_account.json
-            printf '${{ secrets.GOOGLE_SERVICE_ACCOUNT }}' >> app/service_account.json
+            printf '${{secrets.GOOGLE_SERVICE_ACCOUNT}}' >> app/service_account.json
     
         - id: 'auth'
           uses: 'google-github-actions/auth@v1'
@@ -36,7 +36,7 @@ jobs:
         #     runtime: 'python311'
         #     memory_mb: '256'
         #     region: 'asia-south1'
-        #     env_vars: 'WATCH_EMAIL=${{secrets.WATCH_EMAIL}},WATCH_PASSWORD=${{secrets.WATCH_PASSWORD}},WATCH_FROM=${{secrets.WATCH_FROM}}'
+        #     env_vars: 'WATCH_EMAIL=${{secrets.WATCH_EMAIL}},WATCH_PASSWORD=${{secrets.WATCH_PASSWORD}},GOOGLE_DRIVE_FOLDER_ID=${{secrets.GOOGLE_DRIVE_FOLDER_ID}}'
         #     source_dir: './app'
         #     entry_point: 'handler'
         #     timeout: 300
@@ -58,7 +58,7 @@ jobs:
             --entry-point=handler
             --memory=256
             --max-instances=1
-            --set-env-vars=WATCH_EMAIL=${{secrets.WATCH_EMAIL}},WATCH_PASSWORD=${{secrets.WATCH_PASSWORD}},WATCH_FROM=${{secrets.WATCH_FROM}}
+            --set-env-vars=WATCH_EMAIL=${{secrets.WATCH_EMAIL}},WATCH_PASSWORD=${{secrets.WATCH_PASSWORD}},GOOGLE_DRIVE_FOLDER_ID=${{secrets.GOOGLE_DRIVE_FOLDER_ID}}
             --timeout=300
             --allow-unauthenticated
             --trigger-http
